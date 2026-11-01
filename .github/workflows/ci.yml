@@ -1,18 +1,21 @@
 name: CI
 
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
-  workflow_call:
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   verify:
     name: Verify & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,6 +48,7 @@ jobs:
           SITE_URL: 'http://localhost:3000'
           CATALOG_SOURCE: 'static'
           QUOTE_BACKEND: 'off'
+          ALLOW_DEV_PAGES: 'true'
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium webkit
@@ -54,6 +58,7 @@ jobs:
         env:
           CI: 'true'
           ALLOW_PLACEHOLDERS: 'true'
+          ALLOW_DEV_PAGES: 'true'
 
       - name: Upload Playwright report
         if: failure()

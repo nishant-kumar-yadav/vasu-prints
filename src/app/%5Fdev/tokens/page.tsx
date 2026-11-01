@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export default function TokensDevPage() {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' && process.env.ALLOW_DEV_PAGES !== 'true') {
     notFound();
   }
 
