@@ -6,6 +6,7 @@ import { ButtonDemo } from './button-demo';
 import { FormDemo } from './form-demo';
 import { OverlayDemo } from './overlay-demo';
 import { ContentDemo } from './content-demo';
+import { MotifDemo } from './motif-demo';
 
 export function UiGallery() {
   return (
@@ -26,6 +27,7 @@ export function UiGallery() {
         <ButtonDemo />
         <FormDemo />
         <ContentDemo />
+        <MotifDemo />
         <OverlayDemo />
       </div>
     </TooltipProvider>

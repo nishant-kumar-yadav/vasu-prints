@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('UI Primitives Gallery (/_dev/ui)', () => {
-  test('renders all primitive sections and controls', async ({ page }) => {
+  test('renders all primitive sections, motifs, and controls', async ({ page }) => {
     await page.goto('/_dev/ui');
     await expect(page.locator('h1')).toHaveText('UI Primitives Gallery');
     await expect(page.getByRole('heading', { name: 'Buttons' })).toBeVisible();
@@ -9,6 +9,11 @@ test.describe('UI Primitives Gallery (/_dev/ui)', () => {
     await expect(page.getByRole('heading', { name: 'Badges & Status Chips' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Dialog & Sheet' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Accordion (FAQ)' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Packaging Motifs & Brand Icons' }),
+    ).toBeVisible();
+    await expect(page.getByText('DielineFrame (Light Surface / 404 Motif)')).toBeVisible();
+    await expect(page.getByText('WhatsApp (#25D366)')).toBeVisible();
   });
 
   test('verifies keyboard and interactive states for dialog and accordion', async ({ page }) => {
@@ -47,14 +52,14 @@ test.describe('UI Primitives Gallery (/_dev/ui)', () => {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto('/_dev/ui');
     await page.screenshot({
-      path: 'screenshots/T-011-ui-360.png',
+      path: 'screenshots/T-012-motifs-360.png',
       fullPage: true,
     });
 
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/_dev/ui');
     await page.screenshot({
-      path: 'screenshots/T-011-ui-1280.png',
+      path: 'screenshots/T-012-motifs-1280.png',
       fullPage: true,
     });
   });
