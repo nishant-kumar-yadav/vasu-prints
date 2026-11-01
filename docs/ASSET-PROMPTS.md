@@ -22,15 +22,15 @@ text, words, letters, watermark, logo of real brands, signature, cluttered backg
 
 ### 1.3 Output specs
 
-| Use | Aspect | Generate at | Export | Path |
-|---|---|---|---|---|
-| Product gallery (4 per product) | 4:3 | ≥ 2048 × 1536 | WebP q80, 1600 × 1200 | `public/images/products/<slug>/<n>.webp` |
-| Product card (crop of image 1) | 1:1 | — | WebP q80, 800 × 800 | `public/images/products/<slug>/card.webp` |
-| Product OG (crop of image 1) | 1.91:1 | — | JPG q82, 1200 × 630 | `public/images/products/<slug>/og.jpg` |
-| Category | 4:3 | ≥ 2048 × 1536 | WebP q80, 1600 × 1200 | `public/images/categories/<slug>.webp` |
-| Home hero | 4:3 | ≥ 2400 × 1800 | WebP q80, 2000 × 1500 (+ 1200 w variant) | `public/images/hero/home.webp` |
-| About / contact / CTA | 16:9 or 4:3 | ≥ 2400 w | WebP q80, 1920 w | `public/images/pages/<name>.webp` |
-| Default OG | 1.91:1 | — | JPG q82, 1200 × 630 | `public/images/brand/og-default.jpg` |
+| Use                             | Aspect      | Generate at   | Export                                   | Path                                      |
+| ------------------------------- | ----------- | ------------- | ---------------------------------------- | ----------------------------------------- |
+| Product gallery (4 per product) | 4:3         | ≥ 2048 × 1536 | WebP q80, 1600 × 1200                    | `public/images/products/<slug>/<n>.webp`  |
+| Product card (crop of image 1)  | 1:1         | —             | WebP q80, 800 × 800                      | `public/images/products/<slug>/card.webp` |
+| Product OG (crop of image 1)    | 1.91:1      | —             | JPG q82, 1200 × 630                      | `public/images/products/<slug>/og.jpg`    |
+| Category                        | 4:3         | ≥ 2048 × 1536 | WebP q80, 1600 × 1200                    | `public/images/categories/<slug>.webp`    |
+| Home hero                       | 4:3         | ≥ 2400 × 1800 | WebP q80, 2000 × 1500 (+ 1200 w variant) | `public/images/hero/home.webp`            |
+| About / contact / CTA           | 16:9 or 4:3 | ≥ 2400 w      | WebP q80, 1920 w                         | `public/images/pages/<name>.webp`         |
+| Default OG                      | 1.91:1      | —             | JPG q82, 1200 × 630                      | `public/images/brand/og-default.jpg`      |
 
 Post-processing script: `scripts/optimize-images.ts` (sharp) converts, resizes, strips metadata and writes `card.webp` / `og.jpg` crops (centre-weighted, adjustable via a `focal` map in the script).
 
@@ -38,12 +38,12 @@ Consistency checklist for every batch: same background tone, same light directio
 
 ### 1.4 Image slots per product
 
-| Slot | Shot |
-|---|---|
-| 1 | **Hero** — product group, 3/4 angle (30° above, 35° rotation), centred |
-| 2 | **In use / context** — product applied or being used, close framing |
-| 3 | **Detail / format** — stack, roll, sheet or open structure |
-| 4 | **Macro** — finish or material close-up |
+| Slot | Shot                                                                   |
+| ---- | ---------------------------------------------------------------------- |
+| 1    | **Hero** — product group, 3/4 angle (30° above, 35° rotation), centred |
+| 2    | **In use / context** — product applied or being used, close framing    |
+| 3    | **Detail / format** — stack, roll, sheet or open structure             |
+| 4    | **Macro** — finish or material close-up                                |
 
 ---
 
@@ -56,6 +56,7 @@ The final logo is **built in SVG code** (crisp at all sizes, editable). AI gener
 ```
 Minimal modern logo concept for "VasuPrint", a premium B2B printing and packaging manufacturer. A geometric symbol combining a folded paper corner with printer's crop marks, forming an abstract letter V. Deep navy #102B46 and teal #00A6A6 on white. Flat vector style, no gradients, no 3D, no mockup, centred on a white background, generous margins. Wordmark "VasuPrint" in a bold geometric sans-serif with tight letter spacing, "Vasu" in navy and "Print" in teal. Clean, confident, engineered, suitable for a corporate website header and favicon.
 ```
+
 Generate 8–12 options; pick one direction; recreate in SVG to the spec below.
 
 ### 2.2 SVG build spec (default if no concept is chosen)
@@ -85,30 +86,35 @@ A curated flat-lay arrangement on a light grey surface viewed from a 30-degree h
 ### 3.2 Category images
 
 `categories/packaging-boxes.webp`
+
 ```
 Group of custom printed folding carton boxes in different sizes and finishes — matte navy box with gold foil, white premium SBS box with teal accent band, grey-back duplex box shown open — arranged in a staggered row on a light grey seamless background, 3/4 angle, generic abstract logo marks, no readable text.
 + Style block
 ```
 
 `categories/custom-stickers.webp`
+
 ```
 An arrangement of custom printed stickers and labels: a roll of glossy paper labels, a sheet of die-cut vinyl logo stickers, transparent vinyl label on a glass bottle, silver metallic PVC sticker, scattered loose die-cut stickers in navy, teal and white, on a light grey seamless background, generic shapes and abstract logos, no readable text.
 + Style block
 ```
 
 `categories/dtf-stickers.webp`
+
 ```
 A folded black cotton T-shirt with a vibrant full-color DTF printed graphic on the chest, beside a partially peeled DTF transfer sheet showing several colorful designs on clear film, and a stack of pre-cut DTF logo transfers, on a light grey seamless background, abstract illustration designs, no readable text.
 + Style block
 ```
 
 `categories/uv-dtf-stickers.webp`
+
 ```
 Hard-surface products decorated with glossy raised UV DTF decals: a clear glass jar, a matte black stainless steel tumbler, an acrylic phone stand and a white ceramic mug, each with a colorful abstract floral or geometric decal, a UV DTF sheet with carrier film in the foreground, on a light grey seamless background, no readable text.
 + Style block
 ```
 
 `categories/custom-tags.webp`
+
 ```
 A fanned group of premium hang tags: black card tag with gold foil abstract logo, natural kraft tag with cotton string, white tag with metal eyelet, and a frosted plastic tag, laid over a folded neutral linen shirt on a light grey surface, no readable text.
 + Style block
@@ -131,78 +137,91 @@ A fanned group of premium hang tags: black card tag with gold foil abstract logo
 Append the style block to every prompt. Use the generic brand "Lumen & Co." mark (a simple circle-and-line symbol) where a logo is needed, or no logo.
 
 ### 4.1 Mono Carton Boxes — `products/mono-carton-boxes/`
+
 1. `Three custom printed reverse-tuck-end mono carton boxes for a skincare product, matte navy with a thin gold foil border and an abstract circle logo, one standing, one lying, one slightly open showing a white interior, 3/4 angle.`
 2. `A hand placing a small cosmetic bottle into an open matte mono carton box, close framing on the box and hand, neutral manicure, no face.`
 3. `A neat stack of flat-packed printed mono cartons with die-cut flaps visible, top-down 3/4 view, navy and white designs.`
 4. `Macro close-up of a mono carton surface showing glossy spot UV over a matte lamination and a subtle embossed logo, raking light to reveal texture.`
 
 ### 4.2 SBS Boxes — `products/sbs-boxes/`
+
 1. `Premium bright white SBS paperboard boxes for perfume, soft-touch finish with silver foil abstract monogram and a thin teal band, one tall rectangular box and one square box, 3/4 angle.`
 2. `An elegant glass perfume bottle beside its open white SBS box with a paperboard insert, close framing.`
 3. `Edge detail of a cut white SBS paperboard sheet showing a pure white core and smooth coated surface, several sheets fanned.`
 4. `Macro of a blind-embossed abstract logo on bright white soft-touch SBS board, side lighting.`
 
 ### 4.3 Duplex Boxes — `products/duplex-boxes/`
+
 1. `Colorful printed duplex board retail boxes for household products in three sizes, bold teal, navy and white graphics with abstract shapes, one box with a euro-slot hang tab, 3/4 angle.`
 2. `An open duplex box showing the grey back interior with a toy car partially inside, close framing.`
 3. `Duplex boxes hanging from a retail peg by their euro-slot tabs, shallow depth of field.`
 4. `Macro of the edge of duplex board showing white coated top layer and grey back layers.`
 
 ### 4.4 Paper Gumming Stickers — `products/paper-gumming-stickers/`
+
 1. `A roll of glossy printed paper product labels partially unrolled, beside three small glass jars with matching round and rectangular paper labels in navy and teal, 3/4 angle.`
 2. `A hand applying a rectangular paper label to a kraft pouch, close framing.`
 3. `A sheet of round printed paper stickers with one sticker half peeled from the liner, top-down angle.`
 4. `Macro of a glossy chromo paper label showing sharp fine print patterns and the label edge lifting from the backing.`
 
 ### 4.5 Vinyl Gumming Stickers — `products/vinyl-gumming-stickers/`
+
 1. `White glossy vinyl labels wrapped smoothly around three cosmetic plastic bottles in navy, white and teal, 3/4 angle.`
 2. `A transparent vinyl label with a minimal white and teal design on a clear glass bottle so the label looks printed directly on the glass, close framing.`
 3. `A roll of white vinyl labels with die-cut oval shapes, standing on its edge.`
 4. `Macro of water droplets beading on a glossy vinyl label on a bottle, showing water resistance.`
 
 ### 4.6 PVC Gumming Stickers — `products/pvc-gumming-stickers/`
+
 1. `A brushed silver metallic PVC specification label with abstract icons on the side panel of a white home appliance, 3/4 angle.`
 2. `A transparent PVC sticker on a translucent industrial plastic container, close framing.`
 3. `A sheet of thick white PVC labels with rounded die-cut corners, slightly lifted to show thickness.`
 4. `Macro of a gold metallic PVC logo sticker with reflective sheen, raking light.`
 
 ### 4.7 Die-Cut Stickers — `products/die-cut-stickers/`
+
 1. `An assortment of custom die-cut vinyl stickers in playful abstract shapes — a cloud, a leaf, a lightning bolt, a circle badge — in navy, teal, white and coral, scattered on a light grey surface, top-down 3/4 angle.`
 2. `A kiss-cut sticker sheet with several die-cut shapes, one being peeled by a hand, close framing.`
 3. `Die-cut stickers applied as seals on kraft mailer boxes and a paper bag, 3/4 angle.`
 4. `Macro of the precise cut edge of a white-bordered die-cut sticker lifting from its backing.`
 
 ### 4.8 DTF Transfer Stickers — `products/dtf-transfer-stickers/`
+
 1. `A large DTF transfer gang sheet filled with many vibrant full-color abstract illustrations and badges on clear PET film, partially rolled at one end, lying on a light grey surface, 3/4 angle.`
 2. `A hand peeling the clear film away from a freshly pressed colorful DTF print on a black cotton T-shirt, close framing.`
 3. `An industrial heat press closed on a white T-shirt, shallow depth of field, clean modern studio, no people's faces.`
 4. `Macro of a DTF print on cotton fabric showing vivid colors, fine detail and fabric weave texture.`
 
 ### 4.9 DTF Heat Transfer Stickers — `products/dtf-heat-transfer-stickers/`
+
 1. `A neat stack of identical pre-cut DTF heat transfer logo stickers — a simple teal and white circular abstract emblem — fanned out on a light grey surface, 3/4 angle.`
 2. `Inside the collar of a navy T-shirt showing a printed tagless neck label with abstract size icons, close framing, no readable text.`
 3. `A small chest logo applied with DTF on a white polo shirt, folded neatly.`
 4. `A sheet of identical pre-cut DTF logo transfers on their carrier film, top-down.`
 
 ### 4.10 UV DTF Stickers — `products/uv-dtf-sticker-printing/`
+
 1. `A clear glass storage jar with a vibrant raised glossy UV DTF floral decal, beside a UV DTF transfer sheet with several decals, 3/4 angle.`
 2. `A hand pressing a UV DTF decal onto a matte black stainless steel tumbler and lifting the clear carrier film, close framing.`
 3. `Extreme close-up of the raised glossy varnish texture of a UV DTF print catching the light.`
 4. `A UV DTF decal sheet with clear carrier film partially peeled back, top-down angle.`
 
 ### 4.11 Custom UV Transfer Stickers — `products/custom-uv-transfer-stickers/`
+
 1. `A frosted glass cup with a full wraparound custom UV transfer design of abstract waves in navy and teal, on a light grey surface, 3/4 angle.`
 2. `A brushed stainless steel tumbler with a small glossy UV transfer abstract logo, close framing.`
 3. `An elegant perfume bottle with a raised glossy UV transfer label, soft reflections.`
 4. `A curated corporate gift set — notebook, metal bottle, acrylic desk plaque — each with the same abstract UV transfer logo, flat-lay.`
 
 ### 4.12 Custom Hang Tags — `products/custom-hang-tags/`
+
 1. `A group of premium hang tags — matte black card with gold foil abstract monogram, natural kraft tag, white tag with teal edge — with cotton strings, fanned on a light grey surface, 3/4 angle.`
 2. `A kraft hang tag with a navy abstract logo attached by jute string to a neatly folded linen shirt, close framing.`
 3. `Die-cut hang tags in custom shapes with metal eyelets, stacked and fanned.`
 4. `Macro of a deep embossed abstract logo on a thick black hang tag with gold foil, raking light.`
 
 ### 4.13 Plastic Tags — `products/plastic-tags/`
+
 1. `Frosted translucent plastic product tags with a printed navy abstract logo, fanned on a light grey surface, 3/4 angle.`
 2. `A transparent PVC tag with white printing attached to swimwear by a clear loop, close framing.`
 3. `White plastic plant tags inserted into small terracotta pots with seedlings, soft natural light.`

@@ -5,11 +5,7 @@ export const metadata: Metadata = {
   description: 'Custom printing and packaging solutions',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-IN">
       <body>{children}</body>

@@ -25,7 +25,7 @@ This document is the technical source of truth. If code and this document disagr
              ▼                             ▼                                 ▼                      ▼
    MongoDB Atlas (M0, Mumbai)     SMTP (Gmail / Hostinger mail)      Cloudinary (product      Cloudflare Turnstile
    catalog, leads, uploads meta   admin + customer emails            images, admin uploads)   (bot check)
-                                                                                                    
+
    Off-site backup target (rclone remote: Cloudflare R2 or Google Drive)
 ```
 
@@ -33,38 +33,38 @@ Single deployable: **one Next.js application** serves the public site, the admin
 
 ## 2. Technology choices
 
-| Concern | Choice | Version | Why |
-|---|---|---|---|
-| Runtime | Node.js | 22 LTS | Long-term support through 2027; native fetch/streams |
-| Framework | Next.js (App Router) | 16.x | Server rendering for SEO; Server Actions for admin; one deployable. See ADR-0001 |
-| Language | TypeScript | 5.x, `strict: true` | Agents produce safer code with types |
-| UI | React | 19.x | Bundled with Next 16 |
-| Styling | Tailwind CSS | 4.x | Tokens in CSS (`@theme`), no runtime cost |
-| UI primitives | Radix UI via shadcn/ui (copied into `src/components/ui`) | latest | Accessible dialogs, selects, menus; we own the code |
-| Icons | lucide-react | latest | Consistent 1.5 px stroke icons |
-| Fonts | `next/font/google`: **Manrope** (headings), **Inter** (body) | — | Self-hosted at build, no layout shift |
-| Forms | react-hook-form + zod (`@hookform/resolvers`) | latest | Same zod schemas on client and server |
-| Validation | zod | 4.x | Single source of truth for input shapes |
-| Database | MongoDB Atlas M0 (AWS Mumbai `ap-south-1`) via Mongoose | Mongoose 8.x | Flexible catalog documents; free tier; see ADR-0002 |
-| Product images | Cloudinary | SDK 2.x | CDN + automatic format/size; admin uploads |
-| Artwork storage | VPS local disk, behind a `FileStore` interface | — | 100 MB files, no egress cost; see ADR-0003 |
-| Upload parsing | busboy (streaming) | 1.x | Streams to disk; never buffers 100 MB in memory |
-| File type sniffing | file-type + custom signatures for CDR/EPS/AI | latest | Validate by content, not extension |
-| Email | Nodemailer over SMTP | 7.x | Works with Gmail app password or Hostinger mailbox |
-| Email templates | React Email (`@react-email/components`) rendered to HTML | latest | Typed, previewable templates |
-| Bot protection | Cloudflare Turnstile | — | Free, invisible, privacy-friendly |
-| Rate limiting | rate-limiter-flexible (memory store) | latest | Single process → memory is sufficient |
-| Auth | Custom single-admin auth: argon2 hash in env + `jose` signed session cookie | — | One user; no auth provider needed |
-| Logging | pino → PM2 logs (pm2-logrotate) | latest | Structured JSON logs |
-| Markdown (policies) | `react-markdown` + `remark-gfm` (server only) | latest | Policies authored as `.md` |
-| Package manager | pnpm | 10.x (via corepack) | Fast, strict |
-| Lint/format | ESLint (flat config, `eslint-config-next`) + Prettier + `prettier-plugin-tailwindcss` | latest | |
-| Unit tests | Vitest + Testing Library + mongodb-memory-server | latest | |
-| E2E tests | Playwright | latest | Quote flow, admin flow |
-| CI/CD | GitHub Actions → SSH deploy to VPS | — | See `DEPLOYMENT.md` |
-| Process manager | PM2 (fork mode, 1 instance) | 5.x | Restarts, logs, zero-downtime reload |
-| Reverse proxy | Nginx + Certbot (Let's Encrypt) | distro | TLS, caching, upload body limits |
-| Analytics | GA4 via `@next/third-parties/google` + Google Search Console | — | Brief requirement |
+| Concern             | Choice                                                                                | Version             | Why                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------- |
+| Runtime             | Node.js                                                                               | 22 LTS              | Long-term support through 2027; native fetch/streams                             |
+| Framework           | Next.js (App Router)                                                                  | 16.x                | Server rendering for SEO; Server Actions for admin; one deployable. See ADR-0001 |
+| Language            | TypeScript                                                                            | 5.x, `strict: true` | Agents produce safer code with types                                             |
+| UI                  | React                                                                                 | 19.x                | Bundled with Next 16                                                             |
+| Styling             | Tailwind CSS                                                                          | 4.x                 | Tokens in CSS (`@theme`), no runtime cost                                        |
+| UI primitives       | Radix UI via shadcn/ui (copied into `src/components/ui`)                              | latest              | Accessible dialogs, selects, menus; we own the code                              |
+| Icons               | lucide-react                                                                          | latest              | Consistent 1.5 px stroke icons                                                   |
+| Fonts               | `next/font/google`: **Manrope** (headings), **Inter** (body)                          | —                   | Self-hosted at build, no layout shift                                            |
+| Forms               | react-hook-form + zod (`@hookform/resolvers`)                                         | latest              | Same zod schemas on client and server                                            |
+| Validation          | zod                                                                                   | 4.x                 | Single source of truth for input shapes                                          |
+| Database            | MongoDB Atlas M0 (AWS Mumbai `ap-south-1`) via Mongoose                               | Mongoose 8.x        | Flexible catalog documents; free tier; see ADR-0002                              |
+| Product images      | Cloudinary                                                                            | SDK 2.x             | CDN + automatic format/size; admin uploads                                       |
+| Artwork storage     | VPS local disk, behind a `FileStore` interface                                        | —                   | 100 MB files, no egress cost; see ADR-0003                                       |
+| Upload parsing      | busboy (streaming)                                                                    | 1.x                 | Streams to disk; never buffers 100 MB in memory                                  |
+| File type sniffing  | file-type + custom signatures for CDR/EPS/AI                                          | latest              | Validate by content, not extension                                               |
+| Email               | Nodemailer over SMTP                                                                  | 7.x                 | Works with Gmail app password or Hostinger mailbox                               |
+| Email templates     | React Email (`@react-email/components`) rendered to HTML                              | latest              | Typed, previewable templates                                                     |
+| Bot protection      | Cloudflare Turnstile                                                                  | —                   | Free, invisible, privacy-friendly                                                |
+| Rate limiting       | rate-limiter-flexible (memory store)                                                  | latest              | Single process → memory is sufficient                                            |
+| Auth                | Custom single-admin auth: argon2 hash in env + `jose` signed session cookie           | —                   | One user; no auth provider needed                                                |
+| Logging             | pino → PM2 logs (pm2-logrotate)                                                       | latest              | Structured JSON logs                                                             |
+| Markdown (policies) | `react-markdown` + `remark-gfm` (server only)                                         | latest              | Policies authored as `.md`                                                       |
+| Package manager     | pnpm                                                                                  | 10.x (via corepack) | Fast, strict                                                                     |
+| Lint/format         | ESLint (flat config, `eslint-config-next`) + Prettier + `prettier-plugin-tailwindcss` | latest              |                                                                                  |
+| Unit tests          | Vitest + Testing Library + mongodb-memory-server                                      | latest              |                                                                                  |
+| E2E tests           | Playwright                                                                            | latest              | Quote flow, admin flow                                                           |
+| CI/CD               | GitHub Actions → SSH deploy to VPS                                                    | —                   | See `DEPLOYMENT.md`                                                              |
+| Process manager     | PM2 (fork mode, 1 instance)                                                           | 5.x                 | Restarts, logs, zero-downtime reload                                             |
+| Reverse proxy       | Nginx + Certbot (Let's Encrypt)                                                       | distro              | TLS, caching, upload body limits                                                 |
+| Analytics           | GA4 via `@next/third-parties/google` + Google Search Console                          | —                   | Brief requirement                                                                |
 
 **Explicitly not used:** Vercel, Express, Redux, CSS-in-JS, jQuery, Bootstrap, animation libraries heavier than CSS transitions (Framer Motion is allowed only in the admin, never on public pages).
 
@@ -167,14 +167,14 @@ vasuprint/
 
 ## 4. Rendering strategy
 
-| Route | Rendering | Revalidation |
-|---|---|---|
-| `/`, `/about`, `/contact`, policies | Static (build time) | Redeploy, or `revalidatePath` when catalog changes (home shows categories) |
-| `/[slug]` (category/product) | Static via `generateStaticParams` + `dynamicParams = true` | On-demand: admin save calls `revalidatePath('/[slug]')`, `revalidatePath('/')`, `revalidateTag('catalog')` |
-| `/get-a-quote` | Static shell; form is a Client Component reading `searchParams` on the client | — |
-| `/get-a-quote/thank-you` | Dynamic (reads `?ref=`), `noindex` | — |
-| `/admin/**` | Dynamic, `noindex`, never cached | — |
-| `/sitemap.xml` | Generated from catalog, tagged `catalog` | On-demand |
+| Route                               | Rendering                                                                     | Revalidation                                                                                               |
+| ----------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `/`, `/about`, `/contact`, policies | Static (build time)                                                           | Redeploy, or `revalidatePath` when catalog changes (home shows categories)                                 |
+| `/[slug]` (category/product)        | Static via `generateStaticParams` + `dynamicParams = true`                    | On-demand: admin save calls `revalidatePath('/[slug]')`, `revalidatePath('/')`, `revalidateTag('catalog')` |
+| `/get-a-quote`                      | Static shell; form is a Client Component reading `searchParams` on the client | —                                                                                                          |
+| `/get-a-quote/thank-you`            | Dynamic (reads `?ref=`), `noindex`                                            | —                                                                                                          |
+| `/admin/**`                         | Dynamic, `noindex`, never cached                                              | —                                                                                                          |
+| `/sitemap.xml`                      | Generated from catalog, tagged `catalog`                                      | On-demand                                                                                                  |
 
 **Server Components by default.** `'use client'` only for: header mobile menu/mega-menu interactions, image gallery, FAQ accordion (or use native `<details>`), quote form, admin forms/tables, WhatsApp button analytics events.
 
@@ -227,7 +227,7 @@ Client (QuoteForm)                         Server                               
    {fields…, uploadIds[], turnstile,       origin check, honeypot empty?
     website(honeypot), utm…}               verify Turnstile (siteverify)
                                            zod parse QuoteInput
-                                           uploads exist, pending, ≤3                  
+                                           uploads exist, pending, ≤3
                                            reference = nextLeadReference()             ──► counters.findOneAndUpdate($inc)
                                            Lead.create(...)                            ──► leads
                                            move files tmp → leads/<reference>/          ──► Upload{status:'attached', leadId}
@@ -238,6 +238,7 @@ Client (QuoteForm)                         Server                               
 ```
 
 Rules:
+
 - Email sending happens in Next.js `after()` so the response is not delayed; failures are recorded on the lead (`email.admin.status = 'failed'`), never thrown to the buyer.
 - The admin email contains the full spec, file names/sizes and a link to `/admin/leads/<reference>`. **Files are never attached** to email and never publicly accessible.
 - Orphaned `pending` uploads (no lead within 24 h) are deleted by `scripts/cleanup-uploads.ts` (cron hourly).
@@ -248,7 +249,11 @@ Rules:
 ```ts
 // src/lib/uploads/store.ts
 export interface FileStore {
-  writeTemp(id: string, ext: string, stream: Readable): Promise<{ path: string; bytes: number; sha256: string }>;
+  writeTemp(
+    id: string,
+    ext: string,
+    stream: Readable,
+  ): Promise<{ path: string; bytes: number; sha256: string }>;
   promote(id: string, ext: string, leadReference: string): Promise<string>; // returns final relative path
   read(relativePath: string): Promise<Readable>;
   remove(relativePath: string): Promise<void>;
@@ -276,19 +281,24 @@ export const PLACEHOLDER = '__PLACEHOLDER__' as const;
 
 export const business = {
   brandName: 'VasuPrint',
-  legalName: PLACEHOLDER,            // e.g. "VasuPrint" sole proprietorship / Pvt Ltd name
+  legalName: PLACEHOLDER, // e.g. "VasuPrint" sole proprietorship / Pvt Ltd name
   ownerNames: [PLACEHOLDER],
-  phoneDisplay: PLACEHOLDER,         // "+91 98xxxxxx10"
-  phoneE164: PLACEHOLDER,            // "+9198xxxxxx10"
-  whatsappE164: PLACEHOLDER,         // digits only for wa.me, e.g. "9198xxxxxx10"
-  email: PLACEHOLDER,                // public business email
+  phoneDisplay: PLACEHOLDER, // "+91 98xxxxxx10"
+  phoneE164: PLACEHOLDER, // "+9198xxxxxx10"
+  whatsappE164: PLACEHOLDER, // digits only for wa.me, e.g. "9198xxxxxx10"
+  email: PLACEHOLDER, // public business email
   address: {
-    line1: PLACEHOLDER, line2: '', city: PLACEHOLDER, state: PLACEHOLDER, pin: PLACEHOLDER, country: 'India',
+    line1: PLACEHOLDER,
+    line2: '',
+    city: PLACEHOLDER,
+    state: PLACEHOLDER,
+    pin: PLACEHOLDER,
+    country: 'India',
   },
   mapsUrl: PLACEHOLDER,
   gstin: PLACEHOLDER,
-  businessHours: PLACEHOLDER,        // "Mon–Sat, 10:00–19:00 IST"
-  jurisdictionCity: PLACEHOLDER,     // courts for Terms §governing law
+  businessHours: PLACEHOLDER, // "Mon–Sat, 10:00–19:00 IST"
+  jurisdictionCity: PLACEHOLDER, // courts for Terms §governing law
 } as const;
 ```
 
@@ -297,28 +307,28 @@ export const business = {
 
 ### 9.2 Environment variables (`src/config/env.ts`, validated with zod at startup — the process exits if invalid)
 
-| Variable | Required when | Example / notes |
-|---|---|---|
-| `SITE_URL` | always | `https://vasuprint.com` |
-| `CATALOG_SOURCE` | always | `static` (P1–P2) or `mongo` (P3+) |
-| `QUOTE_BACKEND` | always | `off` (P1) or `on` (P2+) |
-| `ALLOW_PLACEHOLDERS` | optional | `true` only for showcase deploys |
-| `MONGODB_URI` | `QUOTE_BACKEND=on` or `CATALOG_SOURCE=mongo` | Atlas SRV string, db `vasuprint` |
-| `UPLOAD_DIR` | `QUOTE_BACKEND=on` | `/srv/vasuprint/shared/uploads` |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` | `QUOTE_BACKEND=on` | Gmail: `smtp.gmail.com`, `465` |
-| `MAIL_FROM` | `QUOTE_BACKEND=on` | `"VasuPrint <quotes@vasuprint.com>"` |
-| `QUOTE_NOTIFY_TO` | `QUOTE_BACKEND=on` | comma-separated admin inbox(es) |
-| `TURNSTILE_SITE_KEY` (exposed as `NEXT_PUBLIC_TURNSTILE_SITE_KEY`), `TURNSTILE_SECRET_KEY` | `QUOTE_BACKEND=on` | test keys in dev/CI |
-| `IP_HASH_SALT` | `QUOTE_BACKEND=on` | `openssl rand -hex 32`; salts stored IP hashes |
-| `ADMIN_EMAIL` | P3 | login identifier |
-| `SESSION_VERSION` | P3 | integer, default `1`; bump to log out all sessions |
-| `ADMIN_PASSWORD_HASH` | P3 | argon2id hash, generate with `pnpm admin:hash` |
-| `SESSION_SECRET` | P3 | ≥ 32 random bytes, base64 |
-| `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | P3 | |
-| `NEXT_PUBLIC_GA_ID` | P4 | `G-XXXXXXX`; GA omitted when unset |
-| `GOOGLE_SITE_VERIFICATION` | P4 | Search Console meta tag |
-| `LOG_LEVEL` | optional | `info` |
-| `BACKUP_HEARTBEAT_URL`, `DISK_ALERT_URL` | optional (cron only) | healthchecks.io ping URLs used by `backup.sh` and the disk cron |
+| Variable                                                                                   | Required when                                | Example / notes                                                 |
+| ------------------------------------------------------------------------------------------ | -------------------------------------------- | --------------------------------------------------------------- |
+| `SITE_URL`                                                                                 | always                                       | `https://vasuprint.com`                                         |
+| `CATALOG_SOURCE`                                                                           | always                                       | `static` (P1–P2) or `mongo` (P3+)                               |
+| `QUOTE_BACKEND`                                                                            | always                                       | `off` (P1) or `on` (P2+)                                        |
+| `ALLOW_PLACEHOLDERS`                                                                       | optional                                     | `true` only for showcase deploys                                |
+| `MONGODB_URI`                                                                              | `QUOTE_BACKEND=on` or `CATALOG_SOURCE=mongo` | Atlas SRV string, db `vasuprint`                                |
+| `UPLOAD_DIR`                                                                               | `QUOTE_BACKEND=on`                           | `/srv/vasuprint/shared/uploads`                                 |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`                                         | `QUOTE_BACKEND=on`                           | Gmail: `smtp.gmail.com`, `465`                                  |
+| `MAIL_FROM`                                                                                | `QUOTE_BACKEND=on`                           | `"VasuPrint <quotes@vasuprint.com>"`                            |
+| `QUOTE_NOTIFY_TO`                                                                          | `QUOTE_BACKEND=on`                           | comma-separated admin inbox(es)                                 |
+| `TURNSTILE_SITE_KEY` (exposed as `NEXT_PUBLIC_TURNSTILE_SITE_KEY`), `TURNSTILE_SECRET_KEY` | `QUOTE_BACKEND=on`                           | test keys in dev/CI                                             |
+| `IP_HASH_SALT`                                                                             | `QUOTE_BACKEND=on`                           | `openssl rand -hex 32`; salts stored IP hashes                  |
+| `ADMIN_EMAIL`                                                                              | P3                                           | login identifier                                                |
+| `SESSION_VERSION`                                                                          | P3                                           | integer, default `1`; bump to log out all sessions              |
+| `ADMIN_PASSWORD_HASH`                                                                      | P3                                           | argon2id hash, generate with `pnpm admin:hash`                  |
+| `SESSION_SECRET`                                                                           | P3                                           | ≥ 32 random bytes, base64                                       |
+| `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`                     | P3                                           |                                                                 |
+| `NEXT_PUBLIC_GA_ID`                                                                        | P4                                           | `G-XXXXXXX`; GA omitted when unset                              |
+| `GOOGLE_SITE_VERIFICATION`                                                                 | P4                                           | Search Console meta tag                                         |
+| `LOG_LEVEL`                                                                                | optional                                     | `info`                                                          |
+| `BACKUP_HEARTBEAT_URL`, `DISK_ALERT_URL`                                                   | optional (cron only)                         | healthchecks.io ping URLs used by `backup.sh` and the disk cron |
 
 **There are no default values for secrets.** Missing required variables crash the server at boot with a clear message.
 
@@ -340,17 +350,18 @@ export const business = {
 
 ## 12. Testing strategy
 
-| Layer | Tool | What |
-|---|---|---|
-| Unit | Vitest | zod schemas (phone normalisation, reserved slugs), file sniffing (fixtures for each type incl. a renamed `.exe` → rejected), reference generator, WhatsApp URL builder, placeholder checker, catalog static repo |
-| Integration | Vitest + mongodb-memory-server | `createLead` (counter increments, file promotion), admin actions with mocked session, redirect creation on slug change |
-| E2E | Playwright (Chromium + WebKit mobile) | J1 quote flow with fixture files and Turnstile test keys, P1 hand-off flow, admin login → lead status change, product create → visible on site, 404 and redirect |
-| Visual QA | Playwright screenshots at 360/768/1280/1440 for Home, a category, a product, Get a Quote | Reviewed manually against `UI-UX.md` |
-| Performance | Lighthouse CI (`@lhci/cli`) in CI on built app | Budgets from PRD §7 |
+| Layer       | Tool                                                                                     | What                                                                                                                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit        | Vitest                                                                                   | zod schemas (phone normalisation, reserved slugs), file sniffing (fixtures for each type incl. a renamed `.exe` → rejected), reference generator, WhatsApp URL builder, placeholder checker, catalog static repo |
+| Integration | Vitest + mongodb-memory-server                                                           | `createLead` (counter increments, file promotion), admin actions with mocked session, redirect creation on slug change                                                                                           |
+| E2E         | Playwright (Chromium + WebKit mobile)                                                    | J1 quote flow with fixture files and Turnstile test keys, P1 hand-off flow, admin login → lead status change, product create → visible on site, 404 and redirect                                                 |
+| Visual QA   | Playwright screenshots at 360/768/1280/1440 for Home, a category, a product, Get a Quote | Reviewed manually against `UI-UX.md`                                                                                                                                                                             |
+| Performance | Lighthouse CI (`@lhci/cli`) in CI on built app                                           | Budgets from PRD §7                                                                                                                                                                                              |
 
 ## 13. Key decisions
 
 See `docs/adr/`:
+
 - ADR-0001 Next.js single app instead of SPA + Express API
 - ADR-0002 MongoDB Atlas
 - ADR-0003 Artwork on VPS local disk behind `FileStore`

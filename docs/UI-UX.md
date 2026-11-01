@@ -6,7 +6,7 @@ v1's first job is to be **beautiful**. This document tells an agent exactly what
 
 ## 1. UX principles
 
-1. **Every scroll ends at a quote.** Every page has one primary action — *Get a Quote* — reachable within one thumb tap on mobile (sticky bar) and visible in the header on desktop.
+1. **Every scroll ends at a quote.** Every page has one primary action — _Get a Quote_ — reachable within one thumb tap on mobile (sticky bar) and visible in the header on desktop.
 2. **Specifics build trust.** Show materials, board types, finishes, formats and process, not adjectives. A buyer should learn something on every product page.
 3. **Calm confidence.** Whitespace, a strict grid, two typefaces, one accent colour. If a section feels busy, remove an element.
 4. **Mobile first, desktop impressive.** Design at 360 px first; at ≥ 1280 px use the extra space for larger imagery and asymmetric layouts, not more content.
@@ -42,7 +42,7 @@ v1's first job is to be **beautiful**. This document tells an agent exactly what
 └── /admin/** (noindex)
 ```
 
-Navigation (brief §7): Home · Packaging Boxes · Stickers · DTF Stickers · UV DTF Stickers · Tags · About Us · Contact Us · **Get a Quote**. On desktop the five product items live under one **Products** mega-menu trigger *plus* the brief's direct items are reachable in one click inside it; this keeps the header uncluttered (see §3.1).
+Navigation (brief §7): Home · Packaging Boxes · Stickers · DTF Stickers · UV DTF Stickers · Tags · About Us · Contact Us · **Get a Quote**. On desktop the five product items live under one **Products** mega-menu trigger _plus_ the brief's direct items are reachable in one click inside it; this keeps the header uncluttered (see §3.1).
 
 ## 3. Global layout
 
@@ -70,6 +70,7 @@ Navigation (brief §7): Home · Packaging Boxes · Stickers · DTF Stickers · U
 │  Hang Tags · Plastic Tags · View all →           View all →                              │
 └──────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
 Category headings are links (eyebrow style, teal-700). Built from the catalog, so new products appear automatically. `shadow-lg`, `radius-lg`, 8 px below header, max 1240 px.
 
 **Mobile (< 1024 px)** — height 64 px: logo left; right side: `Get a Quote` (primary, `sm` 40 px) + menu button (44 px). Menu opens a full-height **Sheet** from the right: product categories as accordion groups (tap category name → category page; chevron → expands products), then About, Contact, divider, phone and WhatsApp rows, policy links small at bottom. Body scroll locked; focus trapped; Esc/close returns focus.
@@ -83,6 +84,7 @@ On category and product pages at < 1024 px, a fixed bottom bar (64 px + safe-are
 │  [ WhatsApp ]        [   Get a Quote →   ] │   (1 : 2 width ratio)
 └────────────────────────────────────────────┘
 ```
+
 White, top border, `shadow-md` upward. Page gets bottom padding so the footer is never covered. Hidden on `/get-a-quote`.
 
 ### 3.3 Floating WhatsApp button
@@ -105,6 +107,7 @@ navy-900 background, white text, 80 px top padding.
 │ © 2026 VasuPrint. All Rights Reserved.   Privacy · Terms · Shipping · Refund   GSTIN: …    │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
 Mobile: brand block, then two-column link groups, then contact, then legal row stacked. Column headings use eyebrow style in teal-300. Links white/80 → white on hover. A faint dieline `CropMarks` motif sits in the top-right corner at 15 % opacity.
 
 ## 4. Page specifications
@@ -130,6 +133,7 @@ Wireframes show desktop; the "Mobile" notes describe the 360–767 px layout. Co
 │  ✓ Custom sizes  ✓ Bulk orders  ✓ Artwork support  ✓ Pan-India dispatch      │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
+
 - 12-col grid: copy cols 1–6, media cols 7–12; media `radius-xl`, 4:3 (desktop) `priority`.
 - H1 uses `display` token, max 14ch per line. "Stand Out." may be wrapped in a teal-500 underline stroke (SVG, 3 px) — the only decorative flourish on the page.
 - Mobile: eyebrow → H1 → paragraph → buttons full width stacked (primary first) → media below (16:11) → trust ticks as 2×2 grid.
@@ -149,6 +153,7 @@ Wireframes show desktop; the "Mobile" notes describe the 360–767 px layout. Co
 │  TAGS (wide, image right, text left)                 │
 └──────────────────────────────────────────────────────┘
 ```
+
 - Each tile: name, tagline, product names as small chips (max 3 + "+2"), arrow. Large tiles use white text over `navy-950/70 → transparent` bottom gradient; small tiles use white card with image top.
 - Mobile: single column, each tile 4:3 image card, in brief order.
 
@@ -158,7 +163,7 @@ Wireframes show desktop; the "Mobile" notes describe the 360–767 px layout. Co
 
 **S6 — Featured products** (white): header + "View all products" link right; 4 `ProductCard`s (featured flag) in a row; tablet 2×2; mobile horizontal scroll-snap row (cards 80 % width, visible next-card peek, no dots, no autoplay).
 
-**S7 — Capabilities** (`surface`): two columns. Left: h2 "Materials, finishes and formats we work with" + paragraph. Right: three chip groups — *Boards & papers* (SBS, Duplex, Art card, Kraft, Chromo paper), *Films* (Vinyl, PVC, PET transfer film, UV DTF film), *Finishes* (Matte / gloss lamination, Spot UV, Foil stamping, Embossing, Die-cutting, Varnish). Only list what `CONTENT.md` confirms.
+**S7 — Capabilities** (`surface`): two columns. Left: h2 "Materials, finishes and formats we work with" + paragraph. Right: three chip groups — _Boards & papers_ (SBS, Duplex, Art card, Kraft, Chromo paper), _Films_ (Vinyl, PVC, PET transfer film, UV DTF film), _Finishes_ (Matte / gloss lamination, Spot UV, Foil stamping, Embossing, Die-cutting, Varnish). Only list what `CONTENT.md` confirms.
 
 **S8 — CTA band:** "Looking for Custom Printing & Packaging Solutions?" + text + `Request a Free Quote` (primary) + `Chat on WhatsApp` (outline-inverse).
 
@@ -198,6 +203,7 @@ Home › Packaging Boxes › Mono Carton Boxes
 ```
 
 Sections below the hero:
+
 1. **Overview** — intro paragraphs (narrow column 7/12) + right column "Key features" list with icons.
 2. **Specifications** — full `SpecTable`.
 3. **Options** — four chip groups: Materials, Printing, Finishes, Formats/Styles. Under them: note "Don't see what you need? Mention it in your quote request — we'll confirm feasibility."
@@ -245,6 +251,7 @@ Two-column on desktop: form (cols 1–8) and a sticky side panel (cols 9–12). 
 ```
 
 Behaviour:
+
 - Fieldsets with numbered headings (①②③) as `<fieldset><legend>`. 2-column field pairs at ≥ 768 px, single column below.
 - Pre-selection: `?product=` sets category + product and shows a small "Requesting a quote for **Mono Carton Boxes**" chip with an image thumbnail above the form (removable). `?category=` sets category only.
 - Product select options filter by category; includes "Not sure / Other".
@@ -267,7 +274,9 @@ Choose how you'd like to send it — your details are already filled in.
 Have artwork files? Attach them in the WhatsApp chat or email.
 [ Edit request ]
 ```
+
 WhatsApp text format:
+
 ```
 Hi VasuPrint, I'd like a quotation.
 • Product: Mono Carton Boxes (Packaging Boxes)
@@ -280,6 +289,7 @@ Hi VasuPrint, I'd like a quotation.
 • Phone: +91 98765 43210 · Email: ananya@raonaturals.in
 • Notes: Need samples before bulk run.
 ```
+
 `mailto:` uses the same text with subject "Quote request — Mono Carton Boxes".
 
 ### 4.6 Thank-you (`/get-a-quote/thank-you?ref=…`)
@@ -321,28 +331,28 @@ Centred: `DielineFrame` motif illustration (an unfolded box dieline drawn in tea
 
 ## 6. States and microcopy
 
-| Situation | UI |
-|---|---|
-| Image loading | `surface-2` well, no spinner |
-| Upload rejected — type | "**{name}** can't be uploaded. Use CDR, AI, EPS, PDF, PSD, SVG, PNG, JPG, TIFF or ZIP." |
-| Upload rejected — size | "**{name}** is {size}. The limit is 100 MB per file — send larger files on WhatsApp or email." |
-| Too many files | "You can attach up to 3 files. Remove one to add another." |
-| Upload failed | "Upload failed. [Retry]" |
-| Submit network error | Banner: "We couldn't send your request. Check your connection and try again — your details are saved." |
-| Server unavailable (503) | Switch to hand-off panel (§4.5) with heading "Send your request on WhatsApp or email instead". |
-| Rate limited | "You've sent several requests recently. Please try again in a few minutes or message us on WhatsApp." |
-| Bot check failed | "We couldn't verify your request. Please refresh the page and try again." |
+| Situation                | UI                                                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Image loading            | `surface-2` well, no spinner                                                                           |
+| Upload rejected — type   | "**{name}** can't be uploaded. Use CDR, AI, EPS, PDF, PSD, SVG, PNG, JPG, TIFF or ZIP."                |
+| Upload rejected — size   | "**{name}** is {size}. The limit is 100 MB per file — send larger files on WhatsApp or email."         |
+| Too many files           | "You can attach up to 3 files. Remove one to add another."                                             |
+| Upload failed            | "Upload failed. [Retry]"                                                                               |
+| Submit network error     | Banner: "We couldn't send your request. Check your connection and try again — your details are saved." |
+| Server unavailable (503) | Switch to hand-off panel (§4.5) with heading "Send your request on WhatsApp or email instead".         |
+| Rate limited             | "You've sent several requests recently. Please try again in a few minutes or message us on WhatsApp."  |
+| Bot check failed         | "We couldn't verify your request. Please refresh the page and try again."                              |
 
 Voice: second person, plain English, short sentences. Spelling follows the owner-approved copy, which uses "customized", "color" and "labeling"; keep that spelling everywhere so the site is consistent. Write quantities with comma grouping ("5,000 pcs", "50,000 labels"), and avoid lakh/crore in specs.
 
 ## 7. Responsive rules
 
-| Breakpoint | Key changes |
-|---|---|
-| < 640 | Single column; full-width buttons in heroes and forms; product gallery edge-to-edge; mobile action bar |
-| 640–1023 | 2-column grids; header still mobile; forms 2-column pairs from 768 |
-| 1024–1279 | Desktop header & mega-menu; 3-column product grids; sticky sub-nav on product pages |
-| ≥ 1280 | Hero media larger (cols 7–12 bleeding to container edge); bento grid full layout |
+| Breakpoint | Key changes                                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------------------ |
+| < 640      | Single column; full-width buttons in heroes and forms; product gallery edge-to-edge; mobile action bar |
+| 640–1023   | 2-column grids; header still mobile; forms 2-column pairs from 768                                     |
+| 1024–1279  | Desktop header & mega-menu; 3-column product grids; sticky sub-nav on product pages                    |
+| ≥ 1280     | Hero media larger (cols 7–12 bleeding to container edge); bento grid full layout                       |
 
 Test widths: 360, 390, 768, 1024, 1280, 1440. No horizontal scroll at any width. Touch targets ≥ 44 × 44 px.
 
