@@ -128,3 +128,13 @@ Local services for P2+: `docker run -d -p 8025:8025 -p 1025:1025 axllent/mailpit
 ## 9. When unsure
 
 Prefer the simplest solution that satisfies the docs. If two docs disagree, follow the more specific one and fix the other in the same PR. If a requirement is genuinely ambiguous, stop and write the question in the PR description rather than guessing at business facts.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

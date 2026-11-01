@@ -1,3 +1,7 @@
 export default function HomePage() {
-  return <main />;
+  return (
+    <main>
+      <h1>VasuPrint</h1>
+    </main>
+  );
 }
