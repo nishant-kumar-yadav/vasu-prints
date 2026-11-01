@@ -13,6 +13,7 @@ export default defineConfig({
           name: 'components',
           include: [
             'src/components/**/*.test.{ts,tsx}',
+            'src/hooks/**/*.test.{ts,tsx}',
             'src/app/**/*.test.{ts,tsx}',
             'tests/unit/**/*.test.{ts,tsx}',
           ],
