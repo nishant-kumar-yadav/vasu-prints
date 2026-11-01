@@ -11,7 +11,30 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "check:placeholders": "tsx scripts/check-placeholders.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "admin:hash": "tsx scripts/admin-hash.ts",
+    "build:scripts": "tsc -p tsconfig.json --noEmit",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "node scripts/check-commit-msg.js $1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "next": "^16.4.3",
@@ -22,6 +45,15 @@
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0"
+    "eslint": "^10.14.0",
+    "eslint-config-next": "^16.4.3",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.72.1"
   }
 }

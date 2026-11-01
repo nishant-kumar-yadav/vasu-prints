@@ -12,21 +12,21 @@ Instructions for every AI coding agent working in this repository. Read this fil
 
 ## 2. Read before you code
 
-| Doc | When |
-|---|---|
-| `docs/TASKS.md` | Always — find your task, its dependencies and acceptance criteria |
-| `docs/PRD.md` | Scope questions, form fields, acceptance criteria |
-| `docs/ARCHITECTURE.md` | Structure, stack, data flow, env vars |
-| `docs/UI-UX.md` | Any UI work — page layouts, behaviour, states, quality bar |
-| `docs/DESIGN-SYSTEM.md` | Any UI work — tokens and components |
-| `docs/CONTENT.md` | Any copy — **never write marketing copy yourself** |
-| `docs/SCHEMA.md` | Models, zod schemas, content files |
-| `docs/API.md` | Route handlers, Server Actions, emails |
-| `docs/SECURITY.md` | Auth, uploads, input handling, headers |
-| `docs/SEO.md` | Metadata, JSON-LD, sitemap, URLs |
-| `docs/ASSET-PROMPTS.md` | Generating images or the logo |
-| `docs/DEPLOYMENT.md` | Server, CI/CD, backups |
-| `docs/adr/` | Why key decisions were made — don't re-litigate without a new ADR |
+| Doc                     | When                                                              |
+| ----------------------- | ----------------------------------------------------------------- |
+| `docs/TASKS.md`         | Always — find your task, its dependencies and acceptance criteria |
+| `docs/PRD.md`           | Scope questions, form fields, acceptance criteria                 |
+| `docs/ARCHITECTURE.md`  | Structure, stack, data flow, env vars                             |
+| `docs/UI-UX.md`         | Any UI work — page layouts, behaviour, states, quality bar        |
+| `docs/DESIGN-SYSTEM.md` | Any UI work — tokens and components                               |
+| `docs/CONTENT.md`       | Any copy — **never write marketing copy yourself**                |
+| `docs/SCHEMA.md`        | Models, zod schemas, content files                                |
+| `docs/API.md`           | Route handlers, Server Actions, emails                            |
+| `docs/SECURITY.md`      | Auth, uploads, input handling, headers                            |
+| `docs/SEO.md`           | Metadata, JSON-LD, sitemap, URLs                                  |
+| `docs/ASSET-PROMPTS.md` | Generating images or the logo                                     |
+| `docs/DEPLOYMENT.md`    | Server, CI/CD, backups                                            |
+| `docs/adr/`             | Why key decisions were made — don't re-litigate without a new ADR |
 
 ## 3. Stack (do not substitute)
 
@@ -55,11 +55,13 @@ Local services for P2+: `docker run -d -p 8025:8025 -p 1025:1025 axllent/mailpit
 ## 5. Code rules
 
 ### 5.1 TypeScript
+
 - `strict: true`, `noUncheckedIndexedAccess: true`. No `any`; use `unknown` + narrowing. No `@ts-ignore` (use `@ts-expect-error` with a reason, only in tests).
 - Types for data come from zod: `type Product = z.infer<typeof productSchema>`. Do not hand-write duplicate interfaces.
 - Named exports everywhere except Next.js files that require default exports (`page`, `layout`, etc.).
 
 ### 5.2 Next.js
+
 - **Server Components by default.** Add `'use client'` only for interactivity, at the smallest possible leaf component. Never import server-only modules (`@/lib/db`, `@/config/env`, models, email) into client components — those modules import `server-only`.
 - Public pages never fetch from our own API; they call the catalog repository directly.
 - Admin mutations are Server Actions; **every action starts with `await requireAdmin()`**, then zod-parses its input, then maps fields explicitly.
@@ -68,12 +70,14 @@ Local services for P2+: `docker run -d -p 8025:8025 -p 1025:1025 axllent/mailpit
 - After catalog writes, call the revalidation set listed in `docs/API.md` §4.2.
 
 ### 5.3 Styling
+
 - Tailwind utilities with **tokens only** (`bg-navy-800`, `text-teal-700`, `rounded-lg`). No raw hex, no arbitrary values (`w-[437px]`) unless documented in a comment why.
 - Teal text on white must be `text-teal-700`, never `text-teal-500`. Button label on teal fill is `text-navy-900`.
 - One primary (teal) button per viewport. Follow the motion whitelist in `docs/DESIGN-SYSTEM.md` §6 — no carousels, parallax, counters or pop-ups.
 - Mobile-first classes (`base` = mobile, then `md:`, `lg:`). Check 360 px before anything else.
 
 ### 5.4 Content and brand
+
 - Copy comes from `docs/CONTENT.md` → `src/content/**`. If you need copy that doesn't exist, stop and ask the owner (leave a clearly marked question in the PR), don't invent it.
 - Brand name is always **VasuPrint**.
 - **Never invent** certifications, client names, testimonials, statistics, years in business, delivery guarantees or prices.
@@ -81,6 +85,7 @@ Local services for P2+: `docker run -d -p 8025:8025 -p 1025:1025 axllent/mailpit
 - Do not mention, reference or copy branding from any other company or website in code, comments, commit messages, content or docs.
 
 ### 5.5 Data and security
+
 - Validate every external input with zod (bodies, params, search params, action args).
 - Never spread request data into Mongoose (`Model.create(req.body)` is forbidden).
 - Never log PII (names, phones, emails, file contents). Log references and ids.
@@ -89,10 +94,11 @@ Local services for P2+: `docker run -d -p 8025:8025 -p 1025:1025 axllent/mailpit
 - Read `docs/SECURITY.md` before touching auth, uploads, headers or the quote endpoint.
 
 ### 5.6 Files and naming
+
 - Components: `PascalCase.tsx`, one component per file, colocated `*.test.tsx`.
 - Hooks: `useThing.ts`. Utilities: `kebab-case.ts`. Content files: `<slug>.ts`.
 - Keep files under ~250 lines; split by responsibility.
-- Comments explain *why*, not *what*. No commented-out code. No `TODO` without a linked task ID (`// TODO(T-064): …`).
+- Comments explain _why_, not _what_. No commented-out code. No `TODO` without a linked task ID (`// TODO(T-064): …`).
 
 ## 6. Testing requirements
 
